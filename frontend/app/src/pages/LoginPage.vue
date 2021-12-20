@@ -113,18 +113,12 @@ export default {
           password: this.password
         })
         .then(() => {
-          this.$store.dispatch("connectToPushNotificationServer");
-          this.$router.push({ name: "Dashboard" });
+          this.$router.push("/").catch(e=>{
+            console.log(e);
+          });
         })
         .catch(() => {
-          this.$notify({
-            group: "notifications",
-            title: "HỆ THỐNG",
-            text: "Thông tin đăng nhập không chính xác",
-            duration: 5000,
-            type: "error",
-            width: "400px"
-          });
+          alert("Thông tin đăng nhập không đúng")
         });
     },
     signup() {
@@ -137,25 +131,11 @@ export default {
         this.registerInfo.phone_number == "" ||
         this.registerInfo.email == ""
       ) {
-        this.$notify({
-          group: "notifications",
-          title: "HỆ THỐNG",
-          text: "Vui lòng điền đầy đủ thông tin",
-          duration: 5000,
-          type: "warn",
-          width: "400px"
-        });
+        alert("Vui lòng điền đầy đủ thông tin")
       } else if (
         this.registerInfo.password != this.registerInfo.retypePassword
       ) {
-        this.$notify({
-          group: "notifications",
-          title: "HỆ THỐNG",
-          text: "Mật khẩu bạn đã nhập không giống nhau",
-          duration: 5000,
-          type: "warn",
-          width: "400px"
-        });
+        alert("Mật khẩu không giống nhau")
       } else {
         let data = this.prepareSignupData();
         let serverDomain = this.$store.getters.getServerDomain;
@@ -171,13 +151,7 @@ export default {
           .post(url, data, config)
           .then(response => {
             if (response.data.code == "0") {
-              this.$notify({
-                group: "notifications",
-                title: "THÀNH CÔNG",
-                text: "Tài khoản của bạn đã được tạo",
-                type: "success",
-                width: "400px"
-              });
+              alert("Tài khoản đã được tạo")
               this.registerInfo.username = "";
               this.registerInfo.password = "";
               this.registerInfo.retypePassword = "";
@@ -186,23 +160,11 @@ export default {
               this.registerInfo.phone_number = "";
               this.registerInfo.email = "";
             } else {
-              this.$notify({
-                group: "notifications",
-                title: "HỆ THỐNG",
-                text: response.data.message,
-                type: "error",
-                width: "400px"
-              });
+              alert("Đăng ký không thành công");
             }
           })
           .catch(() => {
-            this.$notify({
-              group: "notifications",
-              title: "XẢY RA LỖI",
-              text: "Thao tác đã không được thực hiện!",
-              type: "error",
-              width: "400px"
-            });
+            alert("Đăng ký không thành công");
           });
       }
     },
@@ -210,7 +172,6 @@ export default {
       return {
         username: this.registerInfo.username,
         password: this.registerInfo.password,
-        roles: "crm_admin",
         first_name: this.registerInfo.first_name,
         last_name: this.registerInfo.last_name,
         phone_number: this.registerInfo.phone_number,

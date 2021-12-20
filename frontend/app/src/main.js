@@ -3,7 +3,7 @@ import App from './App.vue';
 import vuetify from './plugins/vuetify';
 import './api/main';
 import VueRouter from 'vue-router';
-import HomePage from './pages/HomePage';
+import DebtsManagement from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import store from './store/index';
 
@@ -11,7 +11,13 @@ Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 const routes = [
-  { path: '/', component: HomePage },
+  {
+    path: '/',
+    component: DebtsManagement,
+    meta: {
+      requiresAuth: true,
+    }
+  },
   { path: '/login', component: LoginPage }
 ]
 
@@ -24,7 +30,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.loggedIn) {
       next({
-        name: 'LoginPage',
+        path: '/login',
       })
     } else {
       next()
@@ -32,7 +38,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
     if (store.getters.loggedIn) {
       next({
-        name: 'HomePage',
+        path: '/',
       })
     } else {
       next()
