@@ -5,7 +5,7 @@
     tile
   >
     <v-list dense>
-      <v-subheader>Danh sách các khoản nợ</v-subheader>
+      <v-subheader>Danh sách các con nợ của tôi</v-subheader>
       <v-list-item-group
         v-model="selectedItem"
         color="primary"
