@@ -2,6 +2,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 const debtsRoute = require('./debts-route');
 const usersRoute = require('./users-route');
+const auth = require('./auth');
+const user = require('./user');
+const authenticate = require('../middlewares/authenticate');
 
 module.exports = function (app) {
     // parser do body para json
@@ -23,6 +26,7 @@ module.exports = function (app) {
     // Rotas responsáveis pelo CRUD de dívidas
     app.use('/api/debts', debtsRoute);
     app.use('/api/users', usersRoute);
-
+    app.use('/api/v1/auth', auth);
+    app.use('/api/v1/admin', authenticate, user);
     return app;
 }
