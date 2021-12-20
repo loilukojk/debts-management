@@ -19,7 +19,7 @@ module.exports = mongoose;
 const Redisdb = require('./redis/redisdb');
 
 var db = Redisdb.create({		
-    host: "10.70.123.66",
+    host: "localhost",
     port: "6379"
 });
 
