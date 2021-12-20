@@ -6,9 +6,9 @@
     <v-card-text>
       <v-form>
         <v-text-field
-          label="Tài khoản"
-          name="username"
-          type="text"
+          label="Email đăng nhập"
+          name="email"
+          type="email"
           v-model="username"
         />
         <v-text-field
@@ -35,12 +35,7 @@
       <v-form>
         <v-row>
           <v-col md6>
-            <v-text-field
-              label="Tài khoản"
-              name="username"
-              type="text"
-              v-model="registerInfo.username"
-            />
+            <v-text-field label="Email" name="email" type="text" v-model="registerInfo.email" />
             <v-text-field
               label="Mật khẩu"
               name="password"
@@ -68,7 +63,6 @@
               type="text"
               v-model="registerInfo.phone_number"
             />
-            <v-text-field label="Email" name="email" type="text" v-model="registerInfo.email" />
           </v-col>
         </v-row>
       </v-form>
@@ -123,7 +117,6 @@ export default {
     },
     signup() {
       if (
-        this.registerInfo.username == "" ||
         this.registerInfo.password == "" ||
         this.registerInfo.retypePassword == "" ||
         this.registerInfo.first_name == "" ||
@@ -138,30 +131,17 @@ export default {
         alert("Mật khẩu không giống nhau")
       } else {
         let data = this.prepareSignupData();
-        let serverDomain = this.$store.getters.getServerDomain;
-        let authenBucket = this.$store.getters.getAuthenBucket;
-        let api = "/api/core/v1/user/register/" + authenBucket;
-        let url = serverDomain + api;
-        let config = {
-          headers: this.$store.getters.getAuthConfig
-        };
-
-        // call api create a new account
+        let api = "http://localhost:8080/api/v1/auth/register";
         axios
-          .post(url, data, config)
-          .then(response => {
-            if (response.data.code == "0") {
-              alert("Tài khoản đã được tạo")
-              this.registerInfo.username = "";
-              this.registerInfo.password = "";
-              this.registerInfo.retypePassword = "";
-              this.registerInfo.first_name = "";
-              this.registerInfo.last_name = "";
-              this.registerInfo.phone_number = "";
-              this.registerInfo.email = "";
-            } else {
-              alert("Đăng ký không thành công");
-            }
+          .post(api, data)
+          .then(() => {
+            alert("Tài khoản đã được tạo")
+            this.registerInfo.password = "";
+            this.registerInfo.retypePassword = "";
+            this.registerInfo.first_name = "";
+            this.registerInfo.last_name = "";
+            this.registerInfo.phone_number = "";
+            this.registerInfo.email = "";
           })
           .catch(() => {
             alert("Đăng ký không thành công");
@@ -170,11 +150,11 @@ export default {
     },
     prepareSignupData() {
       return {
-        username: this.registerInfo.username,
+        username: this.registerInfo.email,
         password: this.registerInfo.password,
-        first_name: this.registerInfo.first_name,
-        last_name: this.registerInfo.last_name,
-        phone_number: this.registerInfo.phone_number,
+        firstName: this.registerInfo.first_name,
+        lastName: this.registerInfo.last_name,
+        phoneNumber: this.registerInfo.phone_number,
         email: this.registerInfo.email
       };
     },

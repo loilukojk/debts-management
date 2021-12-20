@@ -4,7 +4,7 @@ import DebtsAPI from './debts.api'
 import UsersAPI from './users.api'
 
 const api = axios.create({
-  baseURL: 'http://localhost:80/api'
+  baseURL: 'http://localhost:8080/api'
 })
 
 Vue.prototype.$instanceDebtsAPI = new DebtsAPI(api)

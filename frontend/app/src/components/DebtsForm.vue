@@ -9,23 +9,22 @@
             <h1>{{ type === 1 ? 'Cập nhật món nợ' : 'Nợ mới' }}</h1>
           </v-col>
           <v-col cols="12">
-            <v-autocomplete
+            <v-text-field
               v-model="selected.userName"
               :disabled="sending"
-              :items="items"
-              :rules="[!!selected.userName || 'Cần nhập tên khách hàng.']"
-              item-text="name"
-              item-value="name"
-              label="Khách hàng"
-            ></v-autocomplete>
+              :rules="[!!selected.cause || 'Cần nhập tên con nợ.']"
+              :counter="60"
+              label="Tên con nợ"
+              required
+            ></v-text-field>
           </v-col>
           <v-col cols="12">
           <v-text-field
               v-model="selected.cause"
               :disabled="sending"
-              :rules="[!!selected.cause || 'Cần nhập lý do.']"
+              :rules="[!!selected.cause || 'Cần nhập lý do mượn nợ.']"
               :counter="60"
-              label="Lý do"
+              label="Lý do mượn nợ"
               required
             ></v-text-field>
           </v-col>
@@ -33,9 +32,9 @@
             <v-text-field
               v-model="selected.value"
               :disabled="sending"
-              :rules="[!!selected.value || 'Cần nhập giá trị.']"
+              :rules="[!!selected.value || 'Cần nhập giá trị của món nợ.']"
               :counter="12"
-              label="Giá trị"
+              label="Số tiền"
               required
             ></v-text-field>
           </v-col>
@@ -52,8 +51,8 @@
                 <v-text-field
                   v-model="selected.date"
                   :disabled="sending"
-                  :rules="[!!selected.date || 'Cần nhập ngày nợ.']"
-                  label="Ngày nợ"
+                  :rules="[!!selected.date || 'Cần nhập ngày mượn nợ.']"
+                  label="Ngày mượn nợ"
                   prepend-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
@@ -89,9 +88,9 @@
               </template>
               <v-card>
                 <v-card-title class="headline">
-                  Bạn có chắc chắn muốn xóa khoản nợ này không?
+                  Bạn có chắc chắn muốn xóa dữ liệu con nợ này không?
                 </v-card-title>
-                <v-card-text>Sau khi hành động này được thực hiện, sẽ không có cách nào để hoàn tác.</v-card-text>
+                <v-card-text>Xoá rồi là mất luôn đó, cân nhắc cho kỹ nha ba!</v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
                     <v-btn

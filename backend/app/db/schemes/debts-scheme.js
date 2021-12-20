@@ -1,10 +1,10 @@
 const mongoose = require('../config');
 
 const debtsSchema = new mongoose.Schema({
-    userID: {
-        type: String,
-        required: [true, 'precisamos saber de qual usuário é a dívida']
-    },
+    // userID: {
+    //     type: String,
+    //     required: [true, 'precisamos saber de qual usuário é a dívida']
+    // },
     userName: {
         type: String
     },
