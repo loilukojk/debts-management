@@ -1,0 +1,37 @@
+{
+  "name": "debts-management",
+  "version": "1.0.0",
+  "description": "Projeto para gerenciar dívidas",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon --legacy-watch server.js --mode development --with-intl=full-icu",
+    "production": "pm2-runtime server.js --mode production",
+    "test:unit": "jest --coverage=true --verbose=true"
+  },
+  "keywords": [],
+  "author": "Rafael Oliveira",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "babel-register": "^6.26.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "install": "^0.13.0",
+    "mongoose": "^5.11.13",
+    "ora": "^4.0.3",
+    "path": "^0.12.7",
+    "prompt": "^1.0.0",
+    "qs": "^6.9.4",
+    "request": "^2.88.2",
+    "slugify": "^1.4.6",
+    "sticky-session": "^1.1.2",
+    "util": "^0.12.2",
+    "uuid": "^8.3.0",
+    "uuidv4": "^6.2.3"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.4"
+  }
+}

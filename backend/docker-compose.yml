@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  debts-management:
+    build: .
+    container_name: debts-management
+    restart: unless-stopped
+    command: npm run dev
+    ports:
+      - "5000:80"
+    volumes:
+      - /app/node_modules
+      - ./app:/app
+    networks:
+      - dm
+  
+  mongodb:
+    build:
+      context: .
+      dockerfile: db.dockerfile
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db:/data/db
+    networks:
+      - dm
+    logging:
+      driver: none
+
+networks:
+  dm:
+    driver: bridge
